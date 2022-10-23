@@ -5,6 +5,7 @@
  */
 package edu.eci.pdsw.samples.services;
 
+import org.apache.log4j.BasicConfigurator;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -67,7 +68,8 @@ public class ServiciosPacientesFactory {
         return instance;
     }
 
-    public static void main(String a[]) throws ExcepcionServiciosSuscripciones {
+    public static void main(String[] a) throws ExcepcionServiciosSuscripciones {
+        BasicConfigurator.configure();
         System.out.println(ServiciosPacientesFactory.getInstance().getForumsServices().consultarPacientes());
     }
 

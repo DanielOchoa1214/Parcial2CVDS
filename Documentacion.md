@@ -9,5 +9,8 @@ Lo primero que se hizo fue clonar el proyecto a la maquina local con el comando
 
 Y se creo un repositorio remoto en mi cuenta personal de GitHub y subimos el parcial
 
-![](./img/Diagram.png)
+![](./img/RepositoryCreation.png)
+![](./img/RepositoryFirstScreen.png)
+
+
 
