@@ -15,6 +15,8 @@ import edu.eci.pdsw.samples.persistence.DaoPaciente;
 import edu.eci.pdsw.samples.persistence.mybatisimpl.MyBatisDAOPaciente;
 import edu.eci.pdsw.samples.services.impl.ServiciosPacienteImpl;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author hcadavid
@@ -68,8 +70,7 @@ public class ServiciosPacientesFactory {
         return instance;
     }
 
-    public static void main(String[] a) throws ExcepcionServiciosSuscripciones {
-        BasicConfigurator.configure();
+    public static void main(String[] a) throws ExcepcionServiciosSuscripciones, SQLException {
         System.out.println(ServiciosPacientesFactory.getInstance().getForumsServices().consultarPacientes());
     }
 

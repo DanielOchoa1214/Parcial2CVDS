@@ -29,7 +29,8 @@
     </environments>
 
     <mappers>
-        <mapper resource="mappers/PacienteMapper.xml"></mapper>                
+        <mapper resource="mappers/PacienteMapper.xml"></mapper>
+        <mapper resource="mappers/ConsultaMapper.xml"></mapper>
     </mappers> 
         
         

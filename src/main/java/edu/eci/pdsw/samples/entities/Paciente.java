@@ -43,6 +43,14 @@ public class Paciente {
         consultas=new ArrayList<>();
     }
 
+    public Paciente(int id, TipoIdentificacion tipo_id, String nombre, Date fechaNacimiento, List<Consulta> consultas) {
+        this.id = id;
+        this.tipo_id = tipo_id;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.consultas= consultas;
+    }
+
     public Paciente() {
         consultas=new ArrayList<>();
     }

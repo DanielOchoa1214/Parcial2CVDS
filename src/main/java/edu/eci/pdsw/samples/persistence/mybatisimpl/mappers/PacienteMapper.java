@@ -33,5 +33,6 @@ import org.apache.ibatis.annotations.Select;
 public interface PacienteMapper {
 
     List<Paciente> getPacientes();
+    List<Paciente> getPacientesById(@Param("id") int id, @Param("idType") String idType);
 
 }

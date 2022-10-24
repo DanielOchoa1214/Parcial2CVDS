@@ -21,4 +21,27 @@
         FROM
             PACIENTES as p
     </select>
+
+    <resultMap type='Paciente' id='PacienteConsultaResult'>
+        <id property='id' column='id'/>
+        <id property='tipo_id' column='tipo_id' typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result property='fechaNacimiento' column='fecha_nacimiento'/>
+        <result property='nombre' column='nombre'/>
+        <collection property='consultas' ofType='Consulta' resultMap="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.CansultaMapper.ConsultaResult"></collection>
+    </resultMap>
+
+    <select id="getPacientesById" resultMap="PacienteConsultaResult">
+        SELECT
+            p.id,
+            p.tipo_id,
+            p.fecha_nacimiento,
+            p.nombre
+        FROM
+            PACIENTES as p
+        <if test="id != null">
+            <if test="idType != null">
+                WHERE p.id = #{id} AND p.tipo_id = #{idType}
+            </if>
+        </if>
+    </select>
 </mapper>
