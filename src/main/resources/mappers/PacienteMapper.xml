@@ -12,14 +12,18 @@
         <result property='nombre' column='nombre'/>
     </resultMap>
 
-    <select id="getPacientes" resultMap="PacienteResult">
+    <select id="getPacientes" resultMap="PacienteConsultaResult">
         SELECT
-            p.id,
-            p.tipo_id,
-            p.fecha_nacimiento,
-            p.nombre
+            p.id AS id,
+            p.tipo_id AS tipo_id,
+            p.fecha_nacimiento AS fecha_nacimiento,
+            p.nombre AS nombre,
+            c.idCONSULTAS AS idCONSULTAS,
+            c.fecha_y_hora AS fecha_y_hora,
+            c.resumen AS resumen
         FROM
-            PACIENTES as p
+            PACIENTES AS p JOIN CONSULTAS as c ON
+                p.id = c.PACIENTES_id AND p.Tipo_id = c.PACIENTES_Tipo_id
     </select>
 
     <resultMap type='Paciente' id='PacienteConsultaResult'>
@@ -27,21 +31,22 @@
         <id property='tipo_id' column='tipo_id' typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
         <result property='fechaNacimiento' column='fecha_nacimiento'/>
         <result property='nombre' column='nombre'/>
-        <collection property='consultas' ofType='Consulta' resultMap="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.CansultaMapper.ConsultaResult"></collection>
+        <collection property='consultas' ofType='Consulta' resultMap="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.ConsultaMapper.ConsultaResult"></collection>
     </resultMap>
 
     <select id="getPacientesById" resultMap="PacienteConsultaResult">
         SELECT
-            p.id,
-            p.tipo_id,
-            p.fecha_nacimiento,
-            p.nombre
+            p.id AS id,
+            p.tipo_id AS tipo_id,
+            p.fecha_nacimiento AS fecha_nacimiento,
+            p.nombre AS nombre,
+            c.idCONSULTAS AS idCONSULTAS,
+            c.fecha_y_hora AS fecha_y_hora,
+            c.resumen AS resumen
         FROM
-            PACIENTES as p
-        <if test="id != null">
-            <if test="idType != null">
-                WHERE p.id = #{id} AND p.tipo_id = #{idType}
-            </if>
-        </if>
+            PACIENTES AS p JOIN CONSULTAS as c ON
+                p.id = c.PACIENTES_id AND p.Tipo_id = c.PACIENTES_Tipo_id
+        WHERE
+            p.id = #{id} AND p.tipo_id = #{idType}
     </select>
 </mapper>

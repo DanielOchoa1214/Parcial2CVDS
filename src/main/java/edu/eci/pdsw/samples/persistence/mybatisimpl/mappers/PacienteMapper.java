@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.eci.pdsw.samples.entities.Paciente;
+import edu.eci.pdsw.samples.entities.TipoIdentificacion;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -33,6 +34,6 @@ import org.apache.ibatis.annotations.Select;
 public interface PacienteMapper {
 
     List<Paciente> getPacientes();
-    List<Paciente> getPacientesById(@Param("id") int id, @Param("idType") String idType);
+    Paciente getPacientesById(@Param("id") int id, @Param("idType") TipoIdentificacion idType);
 
 }

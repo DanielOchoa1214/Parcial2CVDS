@@ -12,12 +12,12 @@
         <h1>Consulta de Pacientes</h1>
         <h:form>
             <!--Por favor no cambiar el 'id':-->
-            <p:inputText id="identificacion_paciente"></p:inputText>
+            <p:inputText id="identificacion_paciente" binding="#{input}"/>
             <p:selectOneMenu value="#{mb.tipoIdentificacion}" >
                 <f:selectItems value="#{mb.tiposIdentificacion}" />
             </p:selectOneMenu>
             <!--Por favor no cambiar el 'value':-->
-            <p:commandButton value="Consultar"></p:commandButton>
+            <p:commandButton action="#{mb.loadPaciente(input.value)}" value="Consultar"/>
         </h:form>
     </h:body>
 </html>

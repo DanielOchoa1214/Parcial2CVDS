@@ -18,8 +18,9 @@ public interface ServiciosPaciente {
      * @throws ExcepcionServiciosSuscripciones 
      */
     public List<Paciente> consultarPacientes() throws ExcepcionServiciosSuscripciones;
-        
-    
+
+    Paciente getPacientesById(int id, TipoIdentificacion tipoIdentificacion) throws ExcepcionServiciosSuscripciones;
+
     /**
      * Consulta un paciente a partir de su numero y tipo de identificacion
      * @param id numero de identificacion
@@ -39,6 +40,7 @@ public interface ServiciosPaciente {
      * @throws ExcepcionServiciosSuscripciones si se presenta otro problema en las capas inferiores.
      */
     public List<Paciente> consultarMenoresConEnfermedadContagiosa() throws ExcepcionServiciosSuscripciones;
-    
+
+
 
 }

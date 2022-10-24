@@ -33,6 +33,15 @@ public class ServiciosPacienteImpl implements ServiciosPaciente {
     }
 
     @Override
+    public Paciente getPacientesById(int id, TipoIdentificacion tipoIdentificacion) throws ExcepcionServiciosSuscripciones {
+        try {
+            return daoPaciente.load(id, tipoIdentificacion);
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosSuscripciones("Error al realizar la consulta:"+ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    @Override
     public Paciente consultarPacientesPorId(int id, TipoIdentificacion tipoIdentificacion) throws ExcepcionServiciosSuscripciones {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

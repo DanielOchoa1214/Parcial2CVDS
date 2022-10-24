@@ -32,7 +32,15 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PacientesBean {
 
-    TipoIdentificacion tipoIdentificacion = TipoIdentificacion.CC;
+    TipoIdentificacion tipoIdentificacion;
+    Paciente selectedPaciente;
+
+
+    public void loadPaciente(int id){
+        try {
+            selectedPaciente = ServiciosPacientesFactory.getInstance().getForumsServices().getPacientesById(id, tipoIdentificacion);
+        } catch (Exception e){}
+    }
 
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;

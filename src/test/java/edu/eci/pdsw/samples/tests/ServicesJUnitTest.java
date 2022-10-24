@@ -18,6 +18,7 @@ package edu.eci.pdsw.samples.tests;
 
 import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.entities.Consulta;
+import edu.eci.pdsw.samples.entities.TipoIdentificacion;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
 import edu.eci.pdsw.samples.services.ServiciosPacientesFactory;
 import java.sql.Connection;
@@ -81,9 +82,11 @@ public class ServicesJUnitTest {
         
         List<Paciente> pacientes = ServiciosPacientesFactory.getInstance().getTestingForumServices().consultarPacientes();
 
-        
-        for (Paciente paciente : pacientes){
-            System.out.println(paciente);
+        Paciente paciente = ServiciosPacientesFactory.getInstance().getTestingForumServices().getPacientesById(9876, TipoIdentificacion.TI);
+
+        System.out.println(paciente);
+        for (Paciente paciendte : pacientes){
+
         }
         //assert ...
         //Assert.fail("Pruebas no implementadas aun...");
