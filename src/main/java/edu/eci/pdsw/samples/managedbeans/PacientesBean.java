@@ -20,6 +20,8 @@ import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.entities.TipoIdentificacion;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
 import edu.eci.pdsw.samples.services.ServiciosPacientesFactory;
+
+import java.sql.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,12 +35,18 @@ import javax.faces.bean.SessionScoped;
 public class PacientesBean {
 
     TipoIdentificacion tipoIdentificacion;
-    Paciente selectedPaciente;
+    Paciente selectedPaciente = new Paciente(1, TipoIdentificacion.CC, "Daniel", new Date(2001, 12, 23));
 
+    public Paciente getSelectedPaciente() {
+        return selectedPaciente;
+    }
 
     public void loadPaciente(int id){
         try {
+            System.out.println(id);
+            System.out.println(tipoIdentificacion);
             selectedPaciente = ServiciosPacientesFactory.getInstance().getForumsServices().getPacientesById(id, tipoIdentificacion);
+            System.out.println("Nombre: " + selectedPaciente.getNombre());
         } catch (Exception e){}
     }
 

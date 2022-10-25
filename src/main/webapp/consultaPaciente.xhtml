@@ -17,7 +17,21 @@
                 <f:selectItems value="#{mb.tiposIdentificacion}" />
             </p:selectOneMenu>
             <!--Por favor no cambiar el 'value':-->
-            <p:commandButton action="#{mb.loadPaciente(input.value)}" value="Consultar"/>
+            <p:commandButton action="#{mb.loadPaciente(input.value)}" update="consultas" value="Consultar"/>
+            <p:dataTable id="consultas" var="consulta" value="#{mb.getSelectedPaciente().getConsultas()}">
+                <f:facet name="header">
+                    Consultas de #{mb.getSelectedPaciente().getNombre()} Nacido el #{mb.getSelectedPaciente().getFechaNacimiento()}
+                </f:facet>
+                <p:column headerText="Codigo de la Consulta">
+                    <h:outputText value="#{consulta.getId()}" />
+                </p:column>
+                <p:column headerText="Fecha de consulta">
+                    <h:outputText value="#{consulta.getFechayHora()}" />
+                </p:column>
+                <p:column headerText="Resumen de consulta">
+                    <h:outputText value="#{consulta.getResumen()}" />
+                </p:column>
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>

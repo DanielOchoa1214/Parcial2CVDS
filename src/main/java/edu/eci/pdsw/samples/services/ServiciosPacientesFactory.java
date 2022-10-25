@@ -15,7 +15,10 @@ import edu.eci.pdsw.samples.persistence.DaoPaciente;
 import edu.eci.pdsw.samples.persistence.mybatisimpl.MyBatisDAOPaciente;
 import edu.eci.pdsw.samples.services.impl.ServiciosPacienteImpl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *

@@ -68,11 +68,13 @@ public class ServicesJUnitTest {
     public void pruebaCeroTest() throws SQLException, ExcepcionServiciosSuscripciones {
         //Insertar datos en la base de datos de pruebas, de acuerdo con la clase
         //de equivalencia correspondiente
+        clearDB();
         Connection conn=getConnection();
         Statement stmt=conn.createStatement();
 
         stmt.execute("INSERT INTO `PACIENTES` (`id`, `tipo_id`, `nombre`, `fecha_nacimiento`) VALUES (9876,'TI','Carmenzo','1995-07-10')");
         stmt.execute("INSERT INTO `CONSULTAS` (`idCONSULTAS`, `fecha_y_hora`, `resumen`, `PACIENTES_id`, `PACIENTES_tipo_id`) VALUES (1262218,'2001-01-01 00:00:00','Gracias',9876,'TI')");
+        stmt.execute("INSERT INTO `CONSULTAS` (`idCONSULTAS`, `fecha_y_hora`, `resumen`, `PACIENTES_id`, `PACIENTES_tipo_id`) VALUES (1262213,'2001-01-01 00:00:00','Gracias',9876,'TI')");
 
         conn.commit();
         conn.close();
