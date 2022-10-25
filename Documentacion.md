@@ -27,7 +27,7 @@ Y ya que las consultas del paciente son un atributo de lista, este se mapeo se d
 
 ![](./img/ConsultaSQL.png)
 
-Y ahora creamos la función getPacientesById en el PacienteMapper de Java para poder usarlo en el Bean
+Y ahora creamos la función getPacientesById en el PacienteMapper de Java para poder usarlo en el los DAO
 
 ![](./img/PacienteMapperJava.png)
 
