@@ -40,7 +40,6 @@ public class MyBatisDAOPaciente implements DaoPaciente {
         //To change body of generated methods, choose Tools | Templates.
         try{
             return pacienteMapper.getPacientesById(id, tipoIdentificacion);
-            // return pacienteMapper.getPacientes();
         }
         catch(Exception e){
             throw new PersistenceException("Error al consultar los pacientes:"+e.getLocalizedMessage(), e);

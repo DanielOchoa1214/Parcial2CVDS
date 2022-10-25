@@ -35,7 +35,7 @@ import javax.faces.bean.SessionScoped;
 public class PacientesBean {
 
     TipoIdentificacion tipoIdentificacion;
-    Paciente selectedPaciente = new Paciente(1, TipoIdentificacion.CC, "Daniel", new Date(2001, 12, 23));
+    Paciente selectedPaciente;
 
     public Paciente getSelectedPaciente() {
         return selectedPaciente;
@@ -43,11 +43,10 @@ public class PacientesBean {
 
     public void loadPaciente(int id){
         try {
-            System.out.println(id);
-            System.out.println(tipoIdentificacion);
             selectedPaciente = ServiciosPacientesFactory.getInstance().getForumsServices().getPacientesById(id, tipoIdentificacion);
-            System.out.println("Nombre: " + selectedPaciente.getNombre());
-        } catch (Exception e){}
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
