@@ -69,6 +69,13 @@ public class Consulta {
     public String toString() {
         return "Consulta { id: "+id+", fechayHora: "+fechayHora+", resumen: "+resumen+" }";
     }
-    
-    
+
+    @Override
+    public boolean equals(Object p){
+        return this.equals((Consulta) p);
+    }
+
+    private boolean equals(Consulta p){
+        return this.id == p.id && this.fechayHora.equals(p.fechayHora) && this.resumen.equals(p.resumen);
+    }
 }

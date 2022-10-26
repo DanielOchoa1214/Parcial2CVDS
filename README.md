@@ -1,91 +1,116 @@
-## Escuela Colombiana de Ingeniería
+## Daniel Sebastian Ochoa Urrego
 
-### PDSW – Procesos de desarrollo de Software
+### CVDS – Ciclos de Vida Desarrollo de Software
 ### Parcial Segundo Tercio
 
+Lo primero que se hizo fue clonar el proyecto a la maquina local con el comando
 
-**IMPORTANTE**
+    git clone https://github.com/isanchezf/2022-2-par2t.git master
 
-* Deseable Trabajar en Linux (para evitar problemas con las instrucciones finales).
-* Se puede consultar en la Web: APIs/Documentación de lenguaje y frameworks (Primefaces, Guice, MyBatis, etc), y enunciados de los laboratorios (se pueden revisar los fuentes incluidos con los dichos enunciados).
-* No se permite: Usar memorias USB, acceder a redes sociales, clientes de correo, o sistemas de almacenamiento en la nube (Google Drive, DropBox, etc). El uso de éstos implicará anulación.
-* Clone el proyecto con GIT, NO lo descargue directamente.
-* NO modifique los indicado en consultaPaciente.xhtml.
-* El filtrado y ordenamiento de los datos DEBE realizarse en el motor de base de datos, a través del uso de SQL. Consultar todos los datos y filtrarlos en el servidor de aplicaciones -que es supremamente INEFICIENTE- se evaluará como INCORRECTO.
+Y se creo un repositorio remoto en mi cuenta personal de GitHub y subimos el parcial
 
+![](./img/RepositoryCreation.png)
+![](./img/RepositoryFirstScreen.png)
 
-Se le han dado los fuentes de un avance parcial de una plataforma de consultas de pacientes de una IPS en línea. En esta plataforma los médicos podrán registrar y buscar pacientes así como buscar y registrar las consultas.
-Adicionalmente, la secretaria de salud puede hacer búsquedas para control epidemiológico.
+### Primer punto
 
-Para el Sprint en curso, se han seleccionado las siguientes historias de usuario del Backlog de producto:
+Antes de empezar a describir como se realizo este punto debo confesar que no hice la implementación de los métodos
+exactamente descritos en el enunciado, pues este fue el ultimo punto del parcial que hice, (Pues queréa hacer los otros para
+intentar conocer bien el proyecto antes de intentar realizar pruebas) y al hacerlo no me di cuenta que los métodos de los
+siguientes puntos ya estaban especificados en la interfaz de ServiciosPaciente por lo que hice mis propios métodos, que a 
+la final son lo mismo que los que ya estaban pero con otros nombres, y me di cuenta al realizar este punto pero ya terminando 
+el parcial tendría que cambiar todo lo que he hecho hasta ahora y no creo que es la mejor opción
 
-Recuerde que en el formato XML no se puede utilizar '<' y '>', por ejemplo al realizar comparaciones, 
- utilice '&amp;lt;' o '&amp;gt;' respectivamente. 
+La prueba implementada fue la siguiente
 
-## Historia de usuario #1
+![](./img/ImplementacionPrueba.png)
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  > **Como** Usuario de la plataforma de consultas médicas
-  >
-  > **Quiero** Poder consultar un paciente a partir de su número y tipo de identificación.
-  >
-  > **Para** Poder hacer una revisión de las consultas realizadas por un paciente cuyo documento ya conozco, y así evitar la búsqueda por el nombre del paciente.
-  >
-  > **Criterio de aceptación:** Se debe mostrar la fecha de nacimiento del paciente, su nombre, y cada una de las consultas realizadas. Las consultas deben estar organizadas de la más reciente (mostrados arriba) a la más antígua, y deben mostrar la fecha y el resúmen.
+En donde primero hacemos todo el Arrange conectándonos a la base de datos y creando los objetos apropiados
+para realizar las comprobaciones con los objetos creados a partir de la base de datos volatil
 
-## Historia de usuario #2
+Luego en el Act simplemente se llama al método getPacientesById de la clase ServiciosPaciente para
+hacer el llamado a la base de datos
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  > **Como** Usuario de la secretaría de salud de la plataforma
-  >
-  > **Quiero** Tener un reporte de las consultas de los menores de edad (menóres de 18 años) en las que en el resúmen se encuentren enfermedades contagiosas.
-  >
-  > **Para** Conocer con rapidez qué pacientes debo revisar y tomar medidas al respecto.
-  >
-  > **Criterio de aceptación:** El reporte NO debe requerir entrar parámetro alguno. Se considerán como enfermedades contagiosas: 'hepatitis' y 'varicela'. El reporte sólo debe contener el número y tipo de identificación  del paciente y la fecha de nacimiento, ordenados por edad de mayor a menor.
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Y por ultimo el Assert en donde comprobamos que los objetos creados sean iguales, por lo que tambien se tubo que sobreescribir
+el método equals en las clases Paciente y Consulta para definir las igualdades
 
-El modelo de base de datos y de clases asociados a la implementación parcial son los siguientes:
+![](./img/PacienteEquals.png)
+![](./img/ConsultaEquals.png)
 
-![](./img/Diagram.png)
+### Segundo punto
 
-![](./img/Model.png)
+Lo primero que hay que hacer para que este punto se pueda hacer es cambiar el archivo de config.properties y poner las credenciales correctas para poder realizar la coneccion con el servidor, se debe cambar la contraseña de autenticacion por "prueba2019"
 
-A partir de la aplicación base suministrada, debe realizar lo siguiente:
+![](./img/configFile.png)
 
-Dado un número y tipo de identificacion de un paciente, mostrar el paciente y las consultas que ha realizado esde paciente.
+Luego de esto se empieza implementando la consulta en SQL en el archivo "PacienteMapper.xml"
 
-Mostrar los pacientes menores de edad que en sus consultas se encuentren las enfermedades: hepatitis o varicela.
+![](./img/xmlSQLSentence.png)
 
+Y ya que las consultas del paciente son un atributo de lista, este se mapeo se debe especificar en otro resultMap
 
-1.  (20%) A partir de la especificación hecha en los métodos
-    *consultarPacientesPorId* y *consultarMenoresConEnfermedadContagiosa* de la fachada de
-    servicios (la parte lógica de la aplicación), implemente sólo una prueba (la que considere más importante para validar las especificaciones y los criterios de aceptación). Siga el esquema usado en ServicesJUnitTest para poblar la base de datos volátil y verificar el comportamiento de las operaciones de la lógica.
+![](./img/ConsultaSQL.png)
 
-2.  (40%) Implemente la historia de usuario #1, agregando todo lo que haga falta en la capa de presentación, lógica y de persistencia. La vista debe implementarse en consultaPaciente.xhtml.
+Y ahora creamos la función getPacientesById en el PacienteMapper de Java para poder usarlo en el los DAO
 
-3.  (40%)Implemente la historia de usuario #2, agregando todo lo que haga falta en la capa de presentación, lógica y de persistencia. La vista debe implementarse en consultarMenoresEnfermedadContagiosa.xhtml.
+![](./img/PacienteMapperJava.png)
 
+Luego tanto en la interfaz DAO como en su implementación se le agrega un metodo load que llame al metodo getPacienteById en el PacienteMapper
 
-## Entrega
+![](./img/DAOPacienteById.png)
+![](./img/DAOPacienteIdImpl.png)
 
-1. Documentar la solución en Readme de Git.
+Luego tanto en la interfaz del servicio como en la implementación de esta añadimos un metodo getPacienteById en el que se llama al metodo load creado anteriormente
 
-## Bono
+![](./img/ServicioPacienteById.png)
+![](./img/ServicioPacienteByIdImpl.png)
 
-Si después de realizado el parcial, de forma INDIVIDUAL encuentra defectos menores (que impliquen a lo sumo cambiar 5 líneas de código), y que al corregirlos permiten que los puntos 2 o 3 funcionen:
+Luego en el bean solo le añadimos un atributo de paciente y una función loadPacienteById ya que ya se tenia implementado el tipo de identificación en el proyecto entregado en el enunciado
 
-1. Haga los ajustes en su código.
+![](./img/PacienteByIdBean.png)
 
-2. Haga un nuevo commit con el mensaje "entrega bono, ahora funciona el Punto XX" , donde XX es el punto que se corrigió. 
+Y por ultimo debemos crear la pagina en xhtml en el archivo "consultaPaciente.xhtml" haciendo todos los respectivos bindings entre los componentes de la pagina y los atributos de donde se sacaran los
+datos en el Bean, ademas de conectar la función loadPaciente del Bean con el click del botón de "Consultar"
 
-3. Ejecute:
+![](./img/ConsultaPacientesXHTML.png)
 
-    ```bash
-    $ git diff --stat HEAD HEAD^^
-    ```
+Y para verificar que el servicio funciona iniciamos el servicio tomcat, entramos a la pagina y buscamos una ID que este en la base de datos
 
-4. Si el resultado del comando anterior es menor o igual a 10, puede aplicar al bono.
+![](./img/Punto2Funcionando.png)
 
-5. Comprima la nueva versión siguiendo el esquema indicado en el parcial, y súbalo a más tardar el 24 de Marzo a las 11:59pm en el espacio correspondiente.
+### Tercer punto
 
+Para este punto seguimos el mismo proceso, primero definimos la consulta SQL en el archivo PacienteMapper.xml, pero esta vez no debemos hacer otro resultMapper ya que con el creado anteriormente funcionaria bien
+
+![](./img/ConsultaEnfermos.png)
+
+Y luego agregamos el método en la interfaz PacienteMapper de Java
+
+![](./img/ContagiososPacienteMapper.png)
+
+Y agregamos un método loadContagiosos en la interfaz DAO y su implementación que llame el método del mapper
+
+![](./img/DAOContagiosos.png)
+![](./img/DAOBatisContagiosos.png)
+
+Luego agregamos un método getContagiousMenores tanto en la implementación del servicio como en su interfaz que llame al método load creado anteriormente
+
+![](./img/ServicioIntefazContagiosa.png)
+![](./img/ServicioImplContagiosa.png)
+
+Y por ultimo creamos un nuevo atributo en el Bean para los menores contagiosos, junto con su getter y un método load que cargue los valores de la base de datos al atributo llamando el método del servicio
+
+![](./img/BeanContagiosos.png)
+
+Y ya con todo en Java terminado podemos empezar a crear el diseño de la pagina web en el archivo "consultarMenoresEnfermedadContagiosa.xhtml" bindiando los valores del Bean a los componentes de la pagina
+
+![](./img/XHTMLContagioso.png)
+
+Y verificamos que funcione iniciando el servidor, entrando a la pagina y dandole al botón consultar
+
+![](./img/WebContagiosa.png)
+
+Y podemos verificar que la información es correcta viendo todos los pacientes de ta tabla PACIENTES con el método consultarPacientes implementado en el main del proyecto
+
+![](./img/MainJava.png)
+![](./img/MainResult.png)
