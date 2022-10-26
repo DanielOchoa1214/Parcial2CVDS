@@ -42,6 +42,15 @@ public class ServiciosPacienteImpl implements ServiciosPaciente {
     }
 
     @Override
+    public List<Paciente> getContagiousMenores() throws ExcepcionServiciosSuscripciones {
+        try {
+            return daoPaciente.loadContagiosos();
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosSuscripciones("Error al realizar la consulta:"+ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    @Override
     public Paciente consultarPacientesPorId(int id, TipoIdentificacion tipoIdentificacion) throws ExcepcionServiciosSuscripciones {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

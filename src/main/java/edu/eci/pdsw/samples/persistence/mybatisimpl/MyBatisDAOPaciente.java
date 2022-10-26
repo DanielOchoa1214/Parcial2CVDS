@@ -34,7 +34,17 @@ public class MyBatisDAOPaciente implements DaoPaciente {
 
     @Inject
     PacienteMapper pacienteMapper;
-    
+
+    @Override
+    public List<Paciente> loadContagiosos() throws PersistenceException {
+        try{
+            return pacienteMapper.getContagiousMenores();
+        }
+        catch(Exception e){
+            throw new PersistenceException("Error al consultar los pacientes:"+e.getLocalizedMessage(), e);
+        }
+    }
+
     @Override
     public Paciente load(int id, TipoIdentificacion tipoIdentificacion) throws PersistenceException {
         //To change body of generated methods, choose Tools | Templates.

@@ -21,6 +21,7 @@ public interface ServiciosPaciente {
 
     Paciente getPacientesById(int id, TipoIdentificacion tipoIdentificacion) throws ExcepcionServiciosSuscripciones;
 
+    List<Paciente> getContagiousMenores() throws ExcepcionServiciosSuscripciones;
     /**
      * Consulta un paciente a partir de su numero y tipo de identificacion
      * @param id numero de identificacion

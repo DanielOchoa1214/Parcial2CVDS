@@ -27,6 +27,8 @@ import java.util.List;
  * @author hcadavid
  */
 public interface DaoPaciente {
+
+    public List<Paciente> loadContagiosos() throws PersistenceException;
  
     public Paciente load(int id, TipoIdentificacion tipoIdentificacion) throws PersistenceException;
     

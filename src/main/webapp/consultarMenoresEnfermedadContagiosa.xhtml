@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:o="http://omnifaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Consulta de Pacientes</title>
@@ -10,7 +11,21 @@
     <h:body>
         <h1>Consulta de menores que han padecido enfermedad contagiosa</h1>
         <h:form>
-
+            <p:commandButton action="#{mb.loadContagiosos()}" update="contagiosos" value="Consultar"/>
+            <p:dataTable id="contagiosos" var="contagioso" value="#{mb.getMenoresContagiados()}">
+                <f:facet name="header">
+                    Niños contagiosos a los que probablemente no deberías acercarte
+                </f:facet>
+                <p:column headerText="Numero de identificación">
+                    <h:outputText value="#{contagioso.getId()}" />
+                </p:column>
+                <p:column headerText="Tipo de Identificación">
+                    <h:outputText value="#{contagioso.getTipo_id()}" />
+                </p:column>
+                <p:column headerText="Fecha de nacimiento">
+                    <h:outputText value="#{contagioso.getFechaNacimiento()}" />
+                </p:column>
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>

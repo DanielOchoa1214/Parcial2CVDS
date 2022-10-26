@@ -37,6 +37,20 @@ public class PacientesBean {
     TipoIdentificacion tipoIdentificacion;
     Paciente selectedPaciente;
 
+    List<Paciente> menoresContagiados;
+
+    public List<Paciente> getMenoresContagiados() {
+        return menoresContagiados;
+    }
+
+    public void loadContagiosos(){
+        try {
+            menoresContagiados = ServiciosPacientesFactory.getInstance().getForumsServices().getContagiousMenores();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public Paciente getSelectedPaciente() {
         return selectedPaciente;
     }

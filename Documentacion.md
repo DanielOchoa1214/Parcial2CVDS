@@ -13,6 +13,9 @@ Y se creo un repositorio remoto en mi cuenta personal de GitHub y subimos el par
 ![](./img/RepositoryFirstScreen.png)
 
 #### Primer punto
+
+
+
 #### Segundo punto
 
 Lo primero que hay que hacer para que este punto se pueda hacer es cambiar el archivo de config.properties y poner las credenciales correctas para poder realizar la coneccion con el servidor, se debe cambar la contraseña de autenticacion por "prueba2019"
@@ -23,7 +26,7 @@ Luego de esto se empieza implementando la consulta en SQL en el archivo "Pacient
 
 ![](./img/xmlSQLSentence.png)
 
-Y ya que las consultas del paciente son un atributo de lista, este se mapeo se debe especificar en otro resultMap que esta en el archivo ConsultaMapper.xml
+Y ya que las consultas del paciente son un atributo de lista, este se mapeo se debe especificar en otro resultMap
 
 ![](./img/ConsultaSQL.png)
 
@@ -50,5 +53,43 @@ datos en el Bean, ademas de conectar la función loadPaciente del Bean con el cl
 
 ![](./img/ConsultaPacientesXHTML.png)
 
+Y para verificar que el servicio funciona iniciamos el servicio tomcat, entramos a la pagina y buscamos una ID que este en la base de datos
+
+![](./img/Punto2Funcionando.png)
+
 #### Tercer punto 
 
+Para este punto seguimos el mismo proceso, primero definimos la consulta SQL en el archivo PacienteMapper.xml, pero esta vez no debemos hacer otro resultMapper ya que con el creado anteriormente funcionaria bien
+
+![](./img/ConsultaEnfermos.png)
+
+Y luego agregamos el método en la interfaz PacienteMapper de Java
+
+![](./img/ContagiososPacienteMapper.png)
+
+Y agregamos un método loadContagiosos en la interfaz DAO y su implementación que llame el método del mapper
+
+![](./img/DAOContagiosos.png)
+![](./img/DAOBatisContagiosos.png)
+
+Luego agregamos un método getContagiousMenores tanto en la implementación del servicio como en su interfaz que llame al método load creado anteriormente
+
+![](./img/ServicioIntefazContagiosa.png)
+![](./img/ServicioImplContagiosa.png)
+
+Y por ultimo creamos un nuevo atributo en el Bean para los menores contagiosos, junto con su getter y un método load que cargue los valores de la base de datos al atributo llamando el método del servicio
+
+![](./img/BeanContagiosos.png)
+
+Y ya con todo en Java terminado podemos empezar a crear el diseño de la pagina web en el archivo "consultarMenoresEnfermedadContagiosa.xhtml" bindiando los valores del Bean a los componentes de la pagina
+
+![](./img/XHTMLContagioso.png)
+
+Y verificamos que funcione iniciando el servidor, entrando a la pagina y dandole al botón consultar 
+
+![](./img/WebContagiosa.png)
+
+Y podemos verificar que la información es correcta viendo todos los pacientes de ta tabla PACIENTES con el método consultarPacientes implementado en el main del proyecto
+
+![](./img/MainJava.png)
+![](./img/MainResult.png)

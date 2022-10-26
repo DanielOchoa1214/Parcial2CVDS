@@ -26,12 +26,18 @@
                 p.id = c.PACIENTES_id AND p.Tipo_id = c.PACIENTES_Tipo_id
     </select>
 
+    <resultMap type='Consulta' id='ConsultaResult'>
+        <id property='id' column='idCONSULTAS'/>
+        <result property='fechayHora' column='fecha_y_hora'/>
+        <result property='resumen' column='resumen'/>
+    </resultMap>
+
     <resultMap type='Paciente' id='PacienteConsultaResult'>
         <id property='id' column='id'/>
         <id property='tipo_id' column='tipo_id' typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
         <result property='fechaNacimiento' column='fecha_nacimiento'/>
         <result property='nombre' column='nombre'/>
-        <collection property='consultas' ofType='Consulta' resultMap="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.ConsultaMapper.ConsultaResult"></collection>
+        <collection property='consultas' ofType='Consulta' resultMap="ConsultaResult"/>
     </resultMap>
 
     <select id="getPacientesById" resultMap="PacienteConsultaResult">
@@ -48,5 +54,22 @@
                 p.id = c.PACIENTES_id AND p.Tipo_id = c.PACIENTES_Tipo_id
         WHERE
             p.id = #{id} AND p.tipo_id = #{idType}
+    </select>
+
+    <select id="getContagiousMenores" resultMap="PacienteConsultaResult">
+        SELECT
+            p.id AS id,
+            p.tipo_id AS tipo_id,
+            p.fecha_nacimiento AS fecha_nacimiento,
+            p.nombre AS nombre,
+            c.idCONSULTAS AS idCONSULTAS,
+            c.fecha_y_hora AS fecha_y_hora,
+            c.resumen AS resumen
+        FROM
+            PACIENTES AS p JOIN CONSULTAS as c ON
+                p.id = c.PACIENTES_id AND p.Tipo_id = c.PACIENTES_Tipo_id
+        WHERE
+            (c.resumen LIKE "%varicela%" OR c.resumen LIKE "%hepatitis%") AND
+            (TIMESTAMPDIFF(YEAR, p.fecha_nacimiento, CURDATE()) &lt; 18)
     </select>
 </mapper>
